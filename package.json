@@ -11,10 +11,12 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
     "@shadcn/ui": "^0.0.4",
+    "@types/pdfjs-dist": "^2.10.377",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.482.0",
     "next": "15.2.2",
+    "pdfjs-dist": "^4.8.69",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.2",
