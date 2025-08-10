@@ -1,4 +1,5 @@
 "use client";
+import GeneratePDF from '@/components/common/generatePDF';
 import StepsHeader from '@/components/common/stepsHeader';
 import UploadPDF from '@/components/common/uploadPDF';
 import { useRef, useState } from "react";
@@ -6,11 +7,10 @@ import { useRef, useState } from "react";
 export default function Home() {
   const [currentStep, setCurrentStep] = useState<StepType>("upload");
   const [isExtracting, setIsExtracting] = useState<boolean>(false);
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [pdfFile, setPdfFile] = useState<File | null>(null);
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
   const steps: StepType[] = ["upload", "generate", "quiz"];
 
   const extractTextFromPDF = async (file: File) => {
@@ -57,7 +57,7 @@ export default function Home() {
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type === 'application/pdf') {
-      if (file.size > 10 * 1024 * 1024) { // 10MB limit
+      if (file.size > 10 * 1024 * 1024) { 
         setError('File size too large. Please select a PDF smaller than 10MB.');
         return;
       }
@@ -94,6 +94,11 @@ export default function Home() {
           onFileSelect={handleFileSelect}
         />
       }
+
+      {currentStep === "generate" &&
+        <GeneratePDF file={pdfFile as File} isLoading={isGenerating} ref={canvasRef}/>
+      }
+
     </div>
   );
 }
