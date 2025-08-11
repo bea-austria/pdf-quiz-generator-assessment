@@ -1,6 +1,7 @@
-import { Loader2, FileText, Upload, AlertCircle, X } from "lucide-react";
+import { Loader2, FileText, Upload } from "lucide-react";
 import { CardHeader, CardTitle, CardDescription, Button } from "../ui";
 import React from "react";
+import ErrorAlert from "../ui/error";
 
 type Props = {
   isLoading: boolean;
@@ -18,8 +19,8 @@ const UploadPDF = React.forwardRef<HTMLInputElement, Props>(
     };
 
     return (
-      <div className="p-8">
-        <CardHeader className="text-center pb-6">
+      <>
+        <CardHeader className="text-center p-0">
           <CardTitle className="text-2xl">Upload Your PDF</CardTitle>
           <CardDescription>
             Select a PDF document to generate quiz questions from its content
@@ -28,27 +29,7 @@ const UploadPDF = React.forwardRef<HTMLInputElement, Props>(
 
         <div className="max-w-md mx-auto space-y-4">
           {/* Error Alert */}
-          {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <div className="flex items-start gap-3">
-                <AlertCircle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <div className="flex-1">
-                  <h4 className="text-sm font-medium text-red-800 mb-1">
-                    Upload Error
-                  </h4>
-                  <p className="text-sm text-red-700">{error}</p>
-                </div>
-                {onClearError && (
-                  <button
-                    onClick={onClearError}
-                    className="text-red-400 hover:text-red-600 transition-colors"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                )}
-              </div>
-            </div>
-          )}
+          {error && <ErrorAlert error={error} onClearError={onClearError} title="PDF Upload Error"/>}
 
           {/* Upload Area */}
           <div
@@ -113,7 +94,7 @@ const UploadPDF = React.forwardRef<HTMLInputElement, Props>(
             )}
           </div>
         </div>
-      </div>
+      </>
     );
   }
 );

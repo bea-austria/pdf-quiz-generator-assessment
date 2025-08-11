@@ -195,6 +195,7 @@ export default function Home() {
           isLoading={isGenerating}
           ref={canvasRef}
           onGenerate={generateQuiz}
+          onClearError={handleClearError}
         />
       )}
 

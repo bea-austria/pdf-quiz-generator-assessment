@@ -9,15 +9,18 @@ import {
 import { Button } from "../ui/button";
 import { Badge } from "../ui";
 import React, { useEffect } from "react";
+import ErrorAlert from "../ui/error";
 
 type Props = {
   isLoading: boolean;
   file: File;
   onGenerate?: () => void;
+  error?: string;
+  onClearError?: () => void;
 };
 
 const GeneratePDF = React.forwardRef<HTMLCanvasElement, Props>(
-  ({ isLoading, file, onGenerate }, canvasRef) => {
+  ({ isLoading, file, onGenerate, error, onClearError }, canvasRef) => {
     const renderFirstPage = async (file: File) => {
       if (!canvasRef || typeof canvasRef === "function" || !canvasRef.current)
         return;
@@ -78,6 +81,9 @@ const GeneratePDF = React.forwardRef<HTMLCanvasElement, Props>(
               {file?.name}
             </Badge>
           </div>
+
+          {/* Error Alert */}
+          {error && <ErrorAlert error={error} onClearError={onClearError} title="Quiz Generation Error"/>}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
             <Card>
